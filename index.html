@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Present Tense Master: Grammar Challenge</title>
+    
+    <!-- Import Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Import Google Fonts: 'Nunito' for rounded, friendly UI text -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: #f0f9ff;
+            background-image: radial-gradient(#bae6fd 1px, transparent 1px);
+            background-size: 20px 20px;
+            color: #1e293b;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Screen Transitions */
+        .screen-hidden {
+            display: none !important;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.4s ease-in forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Menu Card Hover Effects */
+        .level-card {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .level-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Styling for the sentence rows */
+        .sentence-row {
+            background-color: #ffffff;
+            border-radius: 12px;
+            padding: 1.2rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            font-size: 1.25rem;
+            line-height: 1.8;
+            transition: all 0.3s ease;
+            border-left: 5px solid #cbd5e1; /* Default left border */
+        }
+
+        .sentence-row:hover {
+            border-left-color: #93c5fd;
+        }
+
+        /* Number prefix style */
+        .question-number {
+            font-weight: 800;
+            color: #64748b;
+            margin-right: 0.5rem;
+        }
+
+        /* Styling for the typing input blanks */
+        .text-input {
+            width: 160px;
+            padding: 0.1rem 0.5rem;
+            margin: 0 0.5rem;
+            font-size: 1.25rem;
+            color: #1d4ed8;
+            font-weight: 700;
+            text-align: center;
+            background-color: #f8fafc;
+            border: none;
+            border-bottom: 2px dashed #3b82f6;
+            outline: none;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .text-input:focus {
+            border-bottom-style: solid;
+            border-bottom-width: 3px;
+            background-color: #eff6ff;
+            border-radius: 4px 4px 0 0;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
+        }
+
+        /* Correct/Incorrect state styles for inputs */
+        .text-input.correct {
+            border-bottom-color: #10b981;
+            border-bottom-style: solid;
+            color: #065f46;
+            background-color: #d1fae5;
+            border-radius: 4px;
+            pointer-events: none; /* Disable editing */
+        }
+
+        .text-input.incorrect {
+            border-bottom-color: #ef4444;
+            border-bottom-style: solid;
+            color: #b91c1c;
+            background-color: #fee2e2;
+            border-radius: 4px;
+            animation: shake 0.5s ease-in-out;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20% { transform: translateX(-6px); }
+            40% { transform: translateX(6px); }
+            60% { transform: translateX(-6px); }
+            80% { transform: translateX(6px); }
+        }
+
+        /* Checkmark styling */
+        .check-icon {
+            position: absolute;
+            right: -24px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #10b981;
+            font-weight: bold;
+            font-size: 1.2rem;
+            animation: fadeIn 0.3s ease-in forwards;
+        }
+
+    </style>
+</head>
+<body class="py-6 px-4 md:px-8 flex flex-col items-center">
+
+    <!-- ==================== MAIN MENU SCREEN ==================== -->
+    <div id="menu-screen" class="max-w-4xl w-full fade-in">
+        <header class="text-center mb-12 mt-8">
+            <div class="inline-block bg-blue-100 text-blue-800 px-4 py-1 rounded-full font-bold text-sm tracking-wider mb-3">FORM 1 ENGLISH</div>
+            <h1 class="text-4xl md:text-5xl font-extrabold text-blue-900 mb-4 drop-shadow-sm">Grammar Challenge</h1>
+            <p class="text-gray-600 text-xl font-medium">Select a level to test your skills in the Present Tenses!</p>
+        </header>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 px-4">
+            <!-- Level 1 Card -->
+            <div onclick="startLevel(1)" class="level-card bg-white rounded-2xl p-8 border-t-8 border-green-500 shadow-lg text-center flex flex-col items-center justify-between h-full">
+                <div>
+                    <div class="text-5xl mb-4">📘</div>
+                    <h2 class="text-2xl font-bold text-gray-800 mb-2">Level 1</h2>
+                    <h3 class="text-lg font-bold text-green-600 mb-3">Simple Present</h3>
+                    <p class="text-gray-500 text-sm">Focus on habits, routines, and general facts.</p>
+                </div>
+                <button class="mt-6 w-full bg-green-100 hover:bg-green-200 text-green-700 font-bold py-3 px-4 rounded-xl transition duration-200">Play Level 1</button>
+            </div>
+
+            <!-- Level 2 Card -->
+            <div onclick="startLevel(2)" class="level-card bg-white rounded-2xl p-8 border-t-8 border-yellow-500 shadow-lg text-center flex flex-col items-center justify-between h-full">
+                <div>
+                    <div class="text-5xl mb-4">🏃</div>
+                    <h2 class="text-2xl font-bold text-gray-800 mb-2">Level 2</h2>
+                    <h3 class="text-lg font-bold text-yellow-600 mb-3">Present Continuous</h3>
+                    <p class="text-gray-500 text-sm">Focus on actions happening right now.</p>
+                </div>
+                <button class="mt-6 w-full bg-yellow-100 hover:bg-yellow-200 text-yellow-700 font-bold py-3 px-4 rounded-xl transition duration-200">Play Level 2</button>
+            </div>
+
+            <!-- Level 3 Card -->
+            <div onclick="startLevel(3)" class="level-card bg-white rounded-2xl p-8 border-t-8 border-purple-500 shadow-lg text-center flex flex-col items-center justify-between h-full">
+                <div>
+                    <div class="text-5xl mb-4">🔀</div>
+                    <h2 class="text-2xl font-bold text-gray-800 mb-2">Level 3</h2>
+                    <h3 class="text-lg font-bold text-purple-600 mb-3">Mixed Challenge</h3>
+                    <p class="text-gray-500 text-sm">Can you identify which tense to use? Includes stative verbs!</p>
+                </div>
+                <button class="mt-6 w-full bg-purple-100 hover:bg-purple-200 text-purple-700 font-bold py-3 px-4 rounded-xl transition duration-200">Play Level 3</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== GAME SCREEN ==================== -->
+    <div id="game-screen" class="max-w-4xl w-full screen-hidden relative">
+        
+        <!-- Header & Navigation -->
+        <header class="flex flex-col md:flex-row justify-between items-center mb-6 bg-white p-4 rounded-xl shadow-sm border border-gray-100">
+            <button onclick="showMenu()" class="flex items-center text-gray-600 hover:text-blue-600 font-bold bg-gray-100 hover:bg-gray-200 px-4 py-2 rounded-lg transition-colors mb-4 md:mb-0">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
+                Back to Menu
+            </button>
+            <div class="text-center md:text-right">
+                <h1 id="game-level-title" class="text-2xl font-extrabold text-blue-900">Level</h1>
+                <p class="text-sm text-gray-500">Read the sentence and <span class="font-bold text-blue-600">type</span> the correct tense in the blank!</p>
+            </div>
+        </header>
+
+        <!-- Sticky Images for Level 1 -->
+        <div id="level1-images" class="sticky top-4 z-40 bg-white/95 backdrop-blur-sm py-3 px-4 flex justify-center gap-4 mb-6 rounded-xl shadow-md border border-gray-200 hidden transition-all duration-300">
+            <img src="SP1.png" alt="SP1" onerror="this.src='https://placehold.co/120x80/dbeafe/1e3a8a?text=SP1'" class="h-16 md:h-20 w-auto rounded-lg shadow-sm border border-blue-100 object-cover">
+            <img src="SP2.png" alt="SP2" onerror="this.src='https://placehold.co/120x80/dbeafe/1e3a8a?text=SP2'" class="h-16 md:h-20 w-auto rounded-lg shadow-sm border border-blue-100 object-cover">
+            <img src="SP3.png" alt="SP3" onerror="this.src='https://placehold.co/120x80/dbeafe/1e3a8a?text=SP3'" class="h-16 md:h-20 w-auto rounded-lg shadow-sm border border-blue-100 object-cover">
+        </div>
+
+        <!-- Main Content Area: Sentences will be injected here -->
+        <div id="sentences-container" class="space-y-3 mb-10">
+            <!-- JavaScript dynamically creates sentence rows with input fields here -->
+        </div>
+        
+        <!-- Celebration Message (Hidden initially) -->
+        <div id="celebration-msg" class="hidden text-center p-8 bg-green-50 rounded-2xl border-2 border-green-400 mt-8 mb-10 shadow-lg fade-in">
+            <div class="text-6xl mb-4">🎉</div>
+            <h2 class="text-3xl font-bold text-green-700 mb-2">Excellent Job!</h2>
+            <p class="text-green-600 text-lg mb-6">You have mastered this level.</p>
+            <button onclick="showMenu()" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition-transform transform hover:scale-105">
+                Choose Another Level
+            </button>
+        </div>
+
+    </div>
+
+    <script>
+        // --- DATA SETS FOR 3 LEVELS ---
+        const levelData = {
+            // Level 1: Simple Present (Habits, Routines, Facts)
+            1: {
+                title: "Level 1: Simple Present",
+                color: "green",
+                questions: [
+                    { text: "My sister always [blank] (clean) her room on Sundays.", answer: "cleans", hint: "Keyword: always (Routine, She)" },
+                    { text: "Cats usually [blank] (like) sleeping during the day.", answer: "like", hint: "Fact / Plural subject (Cats)" },
+                    { text: "He [blank] (not play) tennis every day. He prefers basketball.", answer: "does not play", hint: "Negative simple present for 'He'" },
+                    { text: "The Earth [blank] (go) around the sun.", answer: "goes", hint: "Scientific Fact (Singular noun)" },
+                    { text: "I usually [blank] (eat) breakfast at 7 a.m. before school.", answer: "eat", hint: "Keyword: usually (Routine, I)" },
+                    { text: "Water [blank] (boil) at 100 degrees Celsius.", answer: "boils", hint: "Scientific Fact (Uncountable noun)" },
+                    { text: "They [blank] (not) live in London. They live in Paris.", answer: "do not", hint: "Negative simple present for 'They'" },
+                    { text: "Peter [blank] (watch) TV every evening after dinner.", answer: "watches", hint: "Keyword: every evening (Routine, He)" }
+                ]
+            },
+            // Level 2: Present Continuous (Happening right now, Temporary)
+            2: {
+                title: "Level 2: Present Continuous",
+                color: "yellow",
+                questions: [
+                    { text: "Look! The dog [blank] (run) after the cat in the park.", answer: "is running", hint: "Keyword: Look! (Happening right now)" },
+                    { text: "Listen! They [blank] (sing) a beautiful song together.", answer: "are singing", hint: "Keyword: Listen! (Happening right now, They)" },
+                    { text: "I can't talk right now. I [blank] (do) my homework.", answer: "am doing", hint: "Happening right now (I)" },
+                    { text: "Please be quiet. The baby [blank] (sleep) in the bedroom.", answer: "is sleeping", hint: "Action happening at this moment (Singular)" },
+                    { text: "We [blank] (not watch) TV at the moment. We are reading books.", answer: "are not watching", hint: "Keyword: at the moment (Negative, We)" },
+                    { text: "She [blank] (wear) a beautiful blue dress today.", answer: "is wearing", hint: "Keyword: today (Temporary state)" },
+                    { text: "It [blank] (rain) heavily outside, remember to take an umbrella!", answer: "is raining", hint: "Happening now (It)" },
+                    { text: "The children [blank] (play) in the garden right now.", answer: "are playing", hint: "Keyword: right now (Plural subject)" }
+                ]
+            },
+            // Level 3: Mixed Challenge (Simple Present vs Present Continuous)
+            3: {
+                title: "Level 3: Mixed Tenses",
+                color: "purple",
+                questions: [
+                    { text: "Miss Leung is not in the staff room. She [blank] (have) lunch in the pantry <strong>at the moment</strong>.", answer: "is having", hint: "Keyword: at the moment (Happening right now)" },
+                    { text: "Music is difficult for me. I <strong>never</strong> [blank] (play) an instrument.", answer: "play", hint: "Keyword: never (Routine / Fact)" },
+                    { text: "Where is John? He [blank] (take) a shower <strong>right now</strong>.", answer: "is taking", hint: "Keyword: right now" },
+                    { text: "<strong>Every Saturday</strong>, we [blank] (visit) our grandparents.", answer: "visit", hint: "Keyword: Every Saturday (Routine)" },
+                    { text: "<strong>Hurry up!</strong> The train [blank] (leave) the station.", answer: "is leaving", hint: "Happening right now (Action in progress)" },
+                    { text: "I [blank] (listen) to music <strong>whenever I study</strong>.", answer: "listen", hint: "Keyword: whenever (Routine / Habit)" },
+                    { text: "<strong>Look outside!</strong> It [blank] (snow) heavily.", answer: "is snowing", hint: "Keyword: Look outside! (Happening now)" },
+                    { text: "I [blank] (love) eating chocolate ice cream.", answer: "love", hint: "'Love' is a state verb expressing emotion" },
+                    { text: "The students [blank] (listen) to an opera in the theatre <strong>now</strong>.", answer: "are listening", hint: "Keyword: now (Happening right now, Plural)" },
+                    { text: "The baby [blank] (drink) milk <strong>three times a day</strong>.", answer: "drinks", hint: "Keyword: three times a day (Routine, Singular subject)" }
+                ]
+            }
+        };
+
+        // --- DOM ELEMENTS ---
+        const menuScreen = document.getElementById('menu-screen');
+        const gameScreen = document.getElementById('game-screen');
+        const container = document.getElementById('sentences-container');
+        const celebrationMsg = document.getElementById('celebration-msg');
+        const gameLevelTitle = document.getElementById('game-level-title');
+
+        let currentLevel = 1;
+        let currentQuestions = [];
+
+        // --- NAVIGATION LOGIC ---
+        function showMenu() {
+            gameScreen.classList.add('screen-hidden');
+            gameScreen.classList.remove('fade-in');
+            menuScreen.classList.remove('screen-hidden');
+            menuScreen.classList.add('fade-in');
+            celebrationMsg.classList.add('hidden');
+        }
+
+        function startLevel(levelNum) {
+            currentLevel = levelNum;
+            currentQuestions = levelData[levelNum].questions;
+            
+            // Setup UI Title
+            gameLevelTitle.textContent = levelData[levelNum].title;
+            // Define title colors based on level
+            gameLevelTitle.className = `text-2xl font-extrabold mb-1 drop-shadow-sm ${levelNum === 1 ? 'text-green-700' : (levelNum === 2 ? 'text-yellow-700' : 'text-purple-700')}`;
+
+            // Sticky Images for Level 1
+            const level1Images = document.getElementById('level1-images');
+            if (levelNum === 1) {
+                level1Images.classList.remove('hidden');
+            } else {
+                level1Images.classList.add('hidden');
+            }
+
+            // Switch screens
+            menuScreen.classList.add('screen-hidden');
+            menuScreen.classList.remove('fade-in');
+            gameScreen.classList.remove('screen-hidden');
+            gameScreen.classList.add('fade-in');
+            
+            initGame();
+        }
+
+        // --- GAME INITIALIZATION ---
+        function initGame() {
+            container.innerHTML = '';
+            celebrationMsg.classList.add('hidden');
+
+            // Generate HTML for each question dynamically
+            currentQuestions.forEach((q, index) => {
+                const parts = q.text.split('[blank]');
+                
+                const row = document.createElement('div');
+                row.className = 'sentence-row';
+                row.id = `row-${index}`;
+                // Tooltip hint on hover
+                row.title = "Hint: " + q.hint;
+                
+                const qNum = document.createElement('span');
+                qNum.className = 'question-number';
+                qNum.textContent = `(${index + 1})`;
+
+                const part1 = document.createElement('span');
+                part1.innerHTML = parts[0];
+                
+                const part2 = document.createElement('span');
+                part2.innerHTML = parts[1];
+
+                // Create input field and wrapper
+                const wrapper = document.createElement('span');
+                wrapper.className = 'relative inline-flex items-center';
+
+                const inputField = document.createElement('input');
+                inputField.type = 'text';
+                inputField.className = 'text-input';
+                inputField.setAttribute('data-answer', q.answer);
+                inputField.setAttribute('data-index', index);
+                inputField.placeholder = "type here";
+                inputField.autocomplete = "off";
+                inputField.spellcheck = false;
+                
+                // Add Event Listeners for checking answer
+                inputField.addEventListener('blur', handleInputCheck); // Check when clicking away
+                inputField.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        inputField.blur(); // Trigger blur event to check
+                    }
+                });
+
+                wrapper.appendChild(inputField);
+
+                row.appendChild(qNum);
+                row.appendChild(part1);
+                row.appendChild(wrapper);
+                row.appendChild(part2);
+                
+                container.appendChild(row);
+            });
+            
+            // Auto focus the first input to guide the user
+            setTimeout(() => focusNextUnanswered(), 500);
+        }
+
+        // --- ANSWER CHECKING LOGIC ---
+        function handleInputCheck(e) {
+            const inputEl = e.target;
+            const correctAnswer = inputEl.getAttribute('data-answer').toLowerCase();
+            const studentAnswer = inputEl.value.trim().toLowerCase().replace(/\s+/g, ' '); // Normalize spaces
+
+            // Ignore empty submissions
+            if (studentAnswer === '') {
+                inputEl.classList.remove('incorrect');
+                return;
+            }
+
+            // Remove visual states temporarily
+            inputEl.classList.remove('incorrect');
+
+            if (studentAnswer === correctAnswer) {
+                // Correct Answer
+                inputEl.classList.add('correct');
+                inputEl.disabled = true; // Lock the input
+                
+                // Append checkmark if not already there
+                const wrapper = inputEl.parentElement;
+                if (!wrapper.querySelector('.check-icon')) {
+                    const check = document.createElement('span');
+                    check.textContent = '✔';
+                    check.className = 'check-icon';
+                    wrapper.appendChild(check);
+                }
+                
+                checkAllComplete();
+                focusNextUnanswered();
+
+            } else {
+                // Incorrect Answer
+                inputEl.classList.add('incorrect');
+                // Remove shake class after animation completes so it can shake again next time
+                setTimeout(() => {
+                    inputEl.classList.remove('incorrect');
+                }, 600);
+            }
+        }
+
+        function focusNextUnanswered() {
+            const inputs = document.querySelectorAll('.text-input');
+            for (let i = 0; i < inputs.length; i++) {
+                if (!inputs[i].disabled) {
+                    inputs[i].focus();
+                    return;
+                }
+            }
+        }
+
+        function checkAllComplete() {
+            let correctCount = 0;
+            const totalQuestions = currentQuestions.length;
+            const inputs = document.querySelectorAll('.text-input');
+            
+            inputs.forEach(input => {
+                if (input.classList.contains('correct')) {
+                    correctCount++;
+                }
+            });
+
+            if (correctCount === totalQuestions) {
+                setTimeout(() => {
+                    celebrationMsg.classList.remove('hidden');
+                    // Scroll to bottom smoothly
+                    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+                }, 500);
+            }
+        }
+    </script>
+</body>
+</html>
